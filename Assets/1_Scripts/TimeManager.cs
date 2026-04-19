@@ -11,13 +11,13 @@ public class TimeManager : MonoBehaviour
     [Header("Интерфейс")]
     public TextMeshProUGUI clockText;
 
-    private int currentTotalMinutes;
+    public int CurrentTotalMinutes { get; private set; }
     private float timer; // Наш внутренний секундомер
 
     void Start()
     {
         // Переводим стартовое время в целые минуты
-        currentTotalMinutes = Mathf.FloorToInt(startHour * 60f);
+        CurrentTotalMinutes = Mathf.FloorToInt(startHour * 60f);
 
         // Отрисовываем время сразу при старте игры
         UpdateClockUI();
@@ -32,7 +32,7 @@ public class TimeManager : MonoBehaviour
         if (timer >= tickInterval)
         {
             timer -= tickInterval; // Скидываем таймер, сохраняя миллисекундную погрешность
-            currentTotalMinutes += minutesPerTick; // Прибавляем 2 минуты
+            CurrentTotalMinutes += minutesPerTick; // Прибавляем 2 минуты
 
             UpdateClockUI(); // Обновляем текст на экране
         }
@@ -41,8 +41,8 @@ public class TimeManager : MonoBehaviour
     // Вынес обновление текста в отдельный метод для чистоты кода
     void UpdateClockUI()
     {
-        int hours = (currentTotalMinutes / 60) % 24;
-        int minutes = currentTotalMinutes % 60;
+        int hours = (CurrentTotalMinutes / 60) % 24;
+        int minutes = CurrentTotalMinutes % 60;
 
         clockText.text = string.Format("{0:00}:{1:00}", hours, minutes);
     }
