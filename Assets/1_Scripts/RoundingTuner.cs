@@ -1,32 +1,32 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIDragRotate : MonoBehaviour, IBeginDragHandler, IDragHandler
 {
     [Header("Target for horizontal movement")]
-    [SerializeField] private RectTransform targetObject;   // Второй UI-элемент, который двигается вправо/влево
-    [SerializeField] private float sensitivity = 1f;       // Чувствительность: пикселей позиции на градус поворота
-    [SerializeField] private float minX = -200f;           // Левая граница (по X)
-    [SerializeField] private float maxX = 200f;            // Правая граница (по X)
+    [SerializeField] private RectTransform targetObject;
+    [SerializeField] private float sensitivity = 1f;
+    [SerializeField] private float minX = -200f;
+    [SerializeField] private float maxX = 200f;
 
     [Header("Text display")]
-    [SerializeField] private Text displayText;             // UI Text для отображения значения
-    [SerializeField] private float minValue = 90f;         // Значение при minX
-    [SerializeField] private float maxValue = 150f;        // Значение при maxX
-    [SerializeField] private string numberFormat = "F1";   // Формат: F1 = одна десятая (например, 120.5)
+    [SerializeField] private TMP_Text displayText;
+    [SerializeField] private float minValue = 90f;
+    [SerializeField] private float maxValue = 150f;
+    [SerializeField] private string numberFormat = "F1";
+    [SerializeField] private string textSuffix = " Hz";   // ← суффикс
 
     private Vector2 _startDragPos;
     private float _startAngle;
-    private float _currentTargetX;   // Текущая позиция targetObject по X
+    private float _currentTargetX;
 
     private void Start()
     {
         if (targetObject != null)
         {
-            // Сохраняем начальную позицию второго элемента
             _currentTargetX = targetObject.anchoredPosition.x;
-            // Принудительно обновляем текст в соответствии с начальной позицией
             UpdateTextFromPosition(_currentTargetX);
         }
     }
@@ -53,28 +53,18 @@ public class UIDragRotate : MonoBehaviour, IBeginDragHandler, IDragHandler
         float currentAngle = GetAngleToPoint(currentDragPos);
         float deltaAngle = Mathf.DeltaAngle(_startAngle, currentAngle);
 
-        // Вращаем текущий элемент (без ограничений)
         transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z + deltaAngle);
 
-        // Двигаем второй элемент на величину, пропорциональную изменению угла
         float deltaPos = deltaAngle * sensitivity;
         float newX = _currentTargetX + deltaPos;
-
-        // Ограничиваем позицию границами
         newX = Mathf.Clamp(newX, minX, maxX);
 
-        // Применяем новую позицию к целевому объекту
         Vector2 anchoredPos = targetObject.anchoredPosition;
         anchoredPos.x = newX;
         targetObject.anchoredPosition = anchoredPos;
 
-        // Сохраняем новую позицию для следующего шага
         _currentTargetX = newX;
-
-        // Обновляем текст на основе новой позиции
         UpdateTextFromPosition(newX);
-
-        // Обновляем начальный угол для плавного продолжения вращения
         _startAngle = currentAngle;
     }
 
@@ -88,11 +78,8 @@ public class UIDragRotate : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         if (displayText == null) return;
 
-        // Линейная интерполяция: значение = minValue + (currentX - minX) / (maxX - minX) * (maxValue - minValue)
         float t = Mathf.InverseLerp(minX, maxX, currentX);
         float value = Mathf.Lerp(minValue, maxValue, t);
-
-        // Отображаем с заданным форматом (например, "123.4")
-        displayText.text = value.ToString(numberFormat);
+        displayText.text = value.ToString(numberFormat) + textSuffix;
     }
 }
