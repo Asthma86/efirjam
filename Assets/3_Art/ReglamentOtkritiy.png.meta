@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fa0168acbda84dc42b7ecf4a5432c7d0
+guid: 9ccecd5a7a1bbfe4d927cdc441e83a68
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6210687834114623619
-    second: Reglment_zakryty_0
+      213: -4138188924346256883
+    second: ReglamentOtkritiy_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Reglment_zakryty_0
+      name: ReglamentOtkritiy_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 532
-        height: 626
+        width: 1563
+        height: 1006
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d77f1cc02543fc9a0800000000000000
-      internalID: -6210687834114623619
+      spriteID: d02b2ee29133296c0800000000000000
+      internalID: -4138188924346256883
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Reglment_zakryty_0: -6210687834114623619
+      ReglamentOtkritiy_0: -4138188924346256883
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

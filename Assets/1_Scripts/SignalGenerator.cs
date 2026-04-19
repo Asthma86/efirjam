@@ -15,7 +15,7 @@ public class SignalGenerator : MonoBehaviour
 
     [Header("Прогрессия (Коды и Частоты)")]
     public List<string> baseCodes = new List<string> { "3228", "3964", "666", "777", "I<3U" };
-    public List<string> phase2Frequencies = new List<string> { "52Hz", "79Hz", "103Hz" };
+    public List<string> phase2Frequencies = new List<string> { "97Hz", "103Hz", "115Hz" };
     public string phase3Frequency = "63Hz";
     public List<string> forbiddenWords = new List<string> { "Мятеж", "Подкуп", "Авария в шахте" };
 
